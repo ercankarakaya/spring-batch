@@ -14,11 +14,11 @@ import java.util.Date;
 @Entity
 @Table
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Person {
     @Id
     private Long id;
+    private Date createDate;
+    private Date modifyDate;
     private String firstName;
     private String lastName;
     private String email;
@@ -26,6 +26,12 @@ public class Person {
     private Date birthDate;
     private String country;
     private String phoneNumber;
+
+
+    public Person(){
+        setCreateDate(new Date());
+    }
+
 
     @SneakyThrows
     @Override
