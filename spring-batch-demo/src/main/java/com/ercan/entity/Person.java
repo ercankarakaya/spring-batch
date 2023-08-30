@@ -1,9 +1,8 @@
 package com.ercan.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 
 import javax.persistence.Entity;
@@ -17,7 +16,9 @@ import java.util.Date;
 public class Person {
     @Id
     private Long id;
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     private Date createDate;
+    @JsonFormat(pattern="dd/MM/yyyy HH:mm:ss")
     private Date modifyDate;
     private String firstName;
     private String lastName;
