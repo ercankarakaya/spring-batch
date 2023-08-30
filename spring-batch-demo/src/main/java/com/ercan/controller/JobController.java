@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/jobs")
@@ -29,10 +27,13 @@ public class JobController {
 
     @GetMapping
     public BatchStatus loadCsvToDb() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
-        Map<String, JobParameter> maps = new HashMap<>();
-        maps.put("time",new JobParameter(System.currentTimeMillis()));
-        JobParameters parameters = new JobParameters(maps);
-        JobExecution jobExecution = jobLauncher.run(job,parameters);
+
+        JobParameters jobParameters = new JobParametersBuilder()
+                .addLong("time",System.currentTimeMillis())
+                .addString("inputFile","/src/main/resources/persons.csv")
+                .toJobParameters();
+
+        JobExecution jobExecution = jobLauncher.run(job,jobParameters);
 
         LOGGER.info("JobExecution: "+jobExecution.getStatus());
 
